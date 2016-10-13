@@ -1,0 +1,65 @@
+TITLE:: InvalidInputError
+summary:: Error class to make input validation easier
+categories:: Debugging
+related:: Classes/Error
+
+DESCRIPTION::
+Error type specifically for alerting the user to bad or invalid input for a function.
+
+CLASSMETHODS::
+
+METHOD:: new
+
+ARGUMENT:: receiver
+Invalid value.
+
+ARGUMENT:: argName
+Name of the argument whose constraints were violated.
+
+ARGUMENT:: method
+Method name.
+
+ARGUMENT:: class
+Class.
+
+ARGUMENT:: spec
+Optional string to tell the user what correct input is.
+
+
+INSTANCEMETHODS::
+
+METHOD:: method
+
+METHOD:: class
+
+METHOD:: spec
+
+METHOD:: argName
+
+METHOD:: errorString
+
+
+EXAMPLES::
+
+Basic use. Evaluate with shift-enter. In a normal situation (internal to a class method) the error thrown by this code would correctly display the method and class names.
+
+code::
+// if this were a function in some class that required positive numbers
+{
+	arg positiveNumber;
+	if(positiveNumber < 0) {
+		InvalidInputError(positiveNumber, "positiveNumber", thisMethod, this.class, "a positive number").throw;
+	}
+}.value(-3);
+::
+
+Less typing, slightly easier to understand:
+
+code::
+{
+	arg positiveNumber;
+	if(positiveNumber < 0) {
+		this.invalidInput(thisMethod, "positiveNumber", positiveNumber, "a positive number");
+	}
+}.value(-3);
+::
